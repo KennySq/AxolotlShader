@@ -5,7 +5,10 @@
 struct BytecodeChunk;
 struct RDEF : public BytecodeChunk
 {
-	void Parse(size_t start, size_t end, std::unique_ptr<AXParser>&& parser);
+	RDEF();
+	~RDEF();
+
+	void Parse(size_t start, size_t end, std::shared_ptr<AXParser>&& parser);
 private:
 
 	unsigned int mConstantBufferCount;
