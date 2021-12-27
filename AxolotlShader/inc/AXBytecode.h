@@ -3,6 +3,7 @@
 
 struct AXBytecode
 {
+
 public:
 	AXBytecode(const char* path);
 	~AXBytecode();
