@@ -157,19 +157,28 @@
     <ClInclude Include="inc\AXBytecode.h" />
     <ClInclude Include="inc\AxolotlShader.h" />
     <ClInclude Include="inc\BytecodeChunk.h" />
+    <ClInclude Include="inc\Decoder.h" />
     <ClInclude Include="inc\framework.h" />
     <ClInclude Include="inc\AXParser.h" />
+    <ClInclude Include="inc\Header.h" />
     <ClInclude Include="inc\pch.h" />
     <ClInclude Include="inc\RDEF.h" />
     <ClInclude Include="inc\ShaderType.h" />
     <ClInclude Include="inc\Util.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="inc\Header.cpp" />
     <ClCompile Include="src\AXBytecode.cpp" />
     <ClCompile Include="src\AXParser.cpp" />
     <ClCompile Include="src\BytecodeChunk.cpp" />
+    <ClCompile Include="src\Decoder.cpp" />
     <ClCompile Include="src\pch.cpp" />
     <ClCompile Include="src\RDEF.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\sample.hlsl">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
