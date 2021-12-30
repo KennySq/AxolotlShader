@@ -5,11 +5,24 @@
 struct BytecodeChunk;
 struct RDEF : public BytecodeChunk
 {
-	RDEF();
+	struct ConstantBuffer
+	{
+		struct ConstantBufferVariable
+		{
+			std::string Name;
+			size_t Size;
+		};
+		std::string Name;
+		std::vector<ConstantBufferVariable> Variables;
+		
+	};
+
+	RDEF(std::shared_ptr<AXParser> parser);
 	~RDEF();
 
-	void Parse(size_t start, size_t end, std::shared_ptr<AXParser>&& parser);
 private:
+
+	void ParseResourceBoundDescription(size_t resourceOffset, size_t);
 
 	unsigned int mConstantBufferCount;
 	unsigned int mBoundResources;
@@ -19,4 +32,8 @@ private:
 
 	unsigned short mShaderType;
 	unsigned char mPreshaderFlag;
+
+	std::shared_ptr<AXParser> mParser;
+
+	std::vector<ConstantBuffer> mConstantBuffers;
 };
