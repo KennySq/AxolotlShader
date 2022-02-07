@@ -3,6 +3,14 @@
 
 struct BytecodeChunk
 {
-	std::map<size_t, size_t> mOffsets;
-	size_t mChunkSize;
+public:
+	BytecodeChunk(size_t chunkOffset)
+		: ChunkOffset(chunkOffset - 5)
+	{
+
+	}
+
+	size_t ChunkOffset;
+	std::map<size_t, size_t> Offsets;
+	size_t ChunkSize;
 };

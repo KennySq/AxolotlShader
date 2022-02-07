@@ -2,7 +2,7 @@
 #include"RDEF.h"
 
 RDEF::RDEF(std::shared_ptr<AXParser> parser)
-	: mParser(parser)
+	: mParser(parser), BytecodeChunk(parser->GetByteIndex())
 {
 	uint32_t chunkSize = parser->ReadUint32();
 	uint32_t cbufferCount = parser->ReadUint32();
@@ -21,9 +21,9 @@ RDEF::RDEF(std::shared_ptr<AXParser> parser)
 	for (unsigned int i = 0; i < cbufferCount; i++)
 	{
 		ConstantBuffer cbuffer;
-		std::string cbufferName = parser->ReadString();
+		std::string cbufferName = parser->ReadString(ChunkOffset);
 		
-		//parser->Jump(sizeof(uint32_t));
+		parser->Jump(sizeof(uint32_t));
 		uint32_t cbufferNameOffset = parser->ReadUint32();
 		uint32_t variableCount = parser->ReadUint32();
 		uint32_t firstVariableDescriptionOffset = parser->ReadUint32();
@@ -76,7 +76,7 @@ RDEF::RDEF(std::shared_ptr<AXParser> parser)
 		parser->Jump(firstResourceOffset, creatorStringOffset);
 
 		cbuffer.Name = cbufferName;
-
+		
 
 		mConstantBuffers.push_back(cbuffer);
 	}

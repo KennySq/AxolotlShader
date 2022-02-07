@@ -37,6 +37,7 @@ std::string AXBytecode::ChunkParseProxy(std::string chunk)
 	if (chunk == "RDEF") // RDEF chunk
 	{
 		RDEF rdef = RDEF(mParser);
+		
 	}
 
 	return GetNextChunk(mParser);

@@ -76,10 +76,8 @@
     <None Include="resource\sample.hlsl">
       <Filter>리소스 파일</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="resources\sample2.hlsl">
+    <None Include="resources\sample2.hlsl">
       <Filter>리소스 파일</Filter>
-    </FxCompile>
+    </None>
   </ItemGroup>
 </Project>

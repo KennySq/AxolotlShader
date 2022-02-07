@@ -40,11 +40,11 @@ public:
 		return result;
 	}
 
-	std::string ReadString()
+	std::string ReadString(unsigned int chunkOffset = 0)
 	{
 		std::string ret;
 
-		unsigned int index = mIndex;
+		unsigned int index = chunkOffset + mRaw[mIndex];
 
 		while (true)
 		{
@@ -84,6 +84,7 @@ public:
 		return Read<uint64_t>();
 	}
 
+	size_t GetByteIndex() const { return mIndex; }
 
 private:
 	char mByte;
