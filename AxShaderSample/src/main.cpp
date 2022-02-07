@@ -8,7 +8,7 @@
 
 int main()
 {
-	std::shared_ptr<AXBytecode> bytecode = std::make_shared<AXBytecode>("C:/Users/odess/Desktop/Projects/Axolotl/AxolotlSample/testShader.o");
+	std::shared_ptr<AXBytecode> bytecode = std::make_shared<AXBytecode>("C:/Users/odess/Documents/AxolotlShader/AxolotlShader/resource/sample.o");
 
 	return 0;
 }

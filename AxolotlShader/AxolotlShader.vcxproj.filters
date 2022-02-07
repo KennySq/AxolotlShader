@@ -68,7 +68,7 @@
     <ClCompile Include="src\Decoder.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="inc\Header.cpp">
+    <ClCompile Include="src\Header.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -76,5 +76,10 @@
     <None Include="resource\sample.hlsl">
       <Filter>리소스 파일</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="resources\sample2.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

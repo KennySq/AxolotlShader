@@ -24,7 +24,7 @@ RDEF::RDEF(std::shared_ptr<AXParser> parser)
 		std::string cbufferName = parser->ReadString();
 		
 		//parser->Jump(sizeof(uint32_t));
-		/*uint32_t cbufferNameOffset = parser->ReadUint32();
+		uint32_t cbufferNameOffset = parser->ReadUint32();
 		uint32_t variableCount = parser->ReadUint32();
 		uint32_t firstVariableDescriptionOffset = parser->ReadUint32();
 		uint32_t cbufferSize = parser->ReadUint32();
@@ -79,7 +79,7 @@ RDEF::RDEF(std::shared_ptr<AXParser> parser)
 
 
 		mConstantBuffers.push_back(cbuffer);
-	*/}
+	}
 
 }
 

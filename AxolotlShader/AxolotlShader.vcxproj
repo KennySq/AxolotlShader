@@ -167,11 +167,11 @@
     <ClInclude Include="inc\Util.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="inc\Header.cpp" />
     <ClCompile Include="src\AXBytecode.cpp" />
     <ClCompile Include="src\AXParser.cpp" />
     <ClCompile Include="src\BytecodeChunk.cpp" />
     <ClCompile Include="src\Decoder.cpp" />
+    <ClCompile Include="src\Header.cpp" />
     <ClCompile Include="src\pch.cpp" />
     <ClCompile Include="src\RDEF.cpp" />
   </ItemGroup>
@@ -179,6 +179,14 @@
     <None Include="resource\sample.hlsl">
       <FileType>Document</FileType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="resources\sample2.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
