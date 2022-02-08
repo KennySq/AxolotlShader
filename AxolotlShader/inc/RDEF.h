@@ -22,7 +22,7 @@ struct RDEF : public BytecodeChunk
 
 private:
 
-	void ParseResourceBoundDescription(size_t resourceOffset, size_t);
+	void ParseResourceBoundDescription(size_t resourceOffset, size_t firstDescription);
 
 	unsigned int mConstantBufferCount;
 	unsigned int mBoundResources;

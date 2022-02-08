@@ -18,12 +18,22 @@ RDEF::RDEF(std::shared_ptr<AXParser> parser)
 
 	parser->Jump(sizeof(uint64_t) * 4 * resourceCount);
 
+	std::vector<std::string> cbufferNames(cbufferCount);
+
+	for (unsigned int i = 0; i < cbufferCount; i++)
+	{
+		
+		std::string cbufferName = parser->ReadString();
+
+
+		cbufferNames[i] = cbufferName;
+	}
+	parser->OffsetCorrection();
+
 	for (unsigned int i = 0; i < cbufferCount; i++)
 	{
 		ConstantBuffer cbuffer;
-		std::string cbufferName = parser->ReadString(ChunkOffset);
-		
-		parser->Jump(sizeof(uint32_t));
+
 		uint32_t cbufferNameOffset = parser->ReadUint32();
 		uint32_t variableCount = parser->ReadUint32();
 		uint32_t firstVariableDescriptionOffset = parser->ReadUint32();
@@ -61,8 +71,7 @@ RDEF::RDEF(std::shared_ptr<AXParser> parser)
 			uint16_t structureMemberCount = parser->ReadUint16();
 			uint16_t firstMemberOffset = parser->ReadUint16();
 		}
-
-		parser->Jump(cbufferNameOffset, firstVariableDescriptionOffset);
+		parser->Jump(cbufferNameOffset, firstResourceOffset);
 
 		uint32_t resourceBoundName = parser->ReadUint32();
 		uint32_t shaderInputType = parser->ReadUint32();
@@ -73,9 +82,10 @@ RDEF::RDEF(std::shared_ptr<AXParser> parser)
 		uint32_t bindCount = parser->ReadUint32();
 		uint32_t shaderInputFlag = parser->ReadUint32();
 
-		parser->Jump(firstResourceOffset, creatorStringOffset);
+		parser->Jump(cbufferNameOffset, creatorStringOffset);
+		std::string creator = parser->ReadString();
 
-		cbuffer.Name = cbufferName;
+		cbuffer.Name = cbufferNames[i];
 		
 
 		mConstantBuffers.push_back(cbuffer);
@@ -87,7 +97,7 @@ RDEF::~RDEF()
 {
 }
 
-void RDEF::ParseResourceBoundDescription(size_t resourceOffset, size_t )
+void RDEF::ParseResourceBoundDescription(size_t resourceOffset, size_t firstDescription)
 {
 
 }

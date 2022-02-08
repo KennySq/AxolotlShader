@@ -18,6 +18,11 @@ public:
 	~AXParser();
 	static std::shared_ptr<AXParser> OpenFile(const char* path);
 
+	inline void OffsetCorrection()
+	{
+		mIndex += 4 - (mIndex % 4) ;
+	}
+
 	inline void Jump(size_t offset)
 	{
 		mIndex += offset;
@@ -28,13 +33,29 @@ public:
 		mIndex = from + offset;
 	}
 
+	inline bool IsBigEndian() const
+	{
+		static char t = 0x01000004;
+
+		return t == 1;
+	}
+
 	template<typename _Ty>
 	_Ty Read()
 	{
 		assert(mIndex + sizeof(_Ty) < mSize);
+		_Ty result;
+		result = *reinterpret_cast<const _Ty*>(&mRaw[mIndex]);
 
-		_Ty result = *reinterpret_cast<const _Ty*>(&mRaw[mIndex]);
-	
+		if (IsBigEndian() == true)
+		{
+		}
+		else
+		{
+			//result = 
+		}
+
+		
 		mIndex += sizeof(_Ty);
 
 		return result;
@@ -44,7 +65,7 @@ public:
 	{
 		std::string ret;
 
-		unsigned int index = chunkOffset + mRaw[mIndex];
+		unsigned int index = mIndex;
 
 		while (true)
 		{

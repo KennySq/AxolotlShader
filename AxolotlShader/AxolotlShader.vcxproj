@@ -181,11 +181,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\sample2.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    <None Include="resource\sample2.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

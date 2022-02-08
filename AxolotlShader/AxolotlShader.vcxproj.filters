@@ -76,7 +76,7 @@
     <None Include="resource\sample.hlsl">
       <Filter>리소스 파일</Filter>
     </None>
-    <None Include="resources\sample2.hlsl">
+    <None Include="resource\sample2.hlsl">
       <Filter>리소스 파일</Filter>
     </None>
   </ItemGroup>
