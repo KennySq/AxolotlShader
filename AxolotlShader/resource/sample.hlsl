@@ -1,13 +1,15 @@
 struct VertexShaderInput
 {
     float3 pos : POSITION;
-    float2 tex : TEXCOORD;
+    float3 nor : NORMAL0;
+    float2 tex : TEXCOORD0;
 };
 
 struct PixelShaderInput
 {
     float4 pos : SV_POSITION;
-    float2 tex : TEXCOORD;
+    float3 nor : TEXCOORD0;
+    float2 tex : TEXCOORD1;
 };
 
 
@@ -15,12 +17,11 @@ cbuffer Generals : register(b3)
 {
     float4x4 Projection;
     float4x4 WorldViewProjection;
-    float4x4 View;
 };
 
 cbuffer Generals2 : register(b4)
 {
-    float4x4 World;
+    float3x3 World;
     float4x4 OtherMat0;
     float4x4 OtherMat1;
 }
@@ -31,6 +32,8 @@ PixelShaderInput VS(VertexShaderInput input)
 
     output.pos = mul(float4(input.pos, 1), WorldViewProjection);
     output.pos = mul(output.pos, OtherMat0);
+    output.nor = mul(input.nor, World);
+    
     output.tex = input.tex;
 
     return output;
