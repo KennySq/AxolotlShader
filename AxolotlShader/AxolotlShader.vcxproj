@@ -127,6 +127,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -157,23 +158,29 @@
     <ClInclude Include="inc\AXBytecode.h" />
     <ClInclude Include="inc\AxolotlShader.h" />
     <ClInclude Include="inc\BytecodeChunk.h" />
+    <ClInclude Include="inc\ConstantBuffer.h" />
     <ClInclude Include="inc\Decoder.h" />
     <ClInclude Include="inc\framework.h" />
     <ClInclude Include="inc\AXParser.h" />
     <ClInclude Include="inc\Header.h" />
     <ClInclude Include="inc\pch.h" />
     <ClInclude Include="inc\RDEF.h" />
+    <ClInclude Include="inc\ShaderObject.h" />
     <ClInclude Include="inc\ShaderType.h" />
+    <ClInclude Include="inc\ShaderVariable.h" />
     <ClInclude Include="inc\Util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AXBytecode.cpp" />
     <ClCompile Include="src\AXParser.cpp" />
     <ClCompile Include="src\BytecodeChunk.cpp" />
+    <ClCompile Include="src\ConstantBuffer.cpp" />
     <ClCompile Include="src\Decoder.cpp" />
     <ClCompile Include="src\Header.cpp" />
     <ClCompile Include="src\pch.cpp" />
     <ClCompile Include="src\RDEF.cpp" />
+    <ClCompile Include="src\ShaderObject.cpp" />
+    <ClCompile Include="src\ShaderVariable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\sample.hlsl">
