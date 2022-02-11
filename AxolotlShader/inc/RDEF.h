@@ -11,14 +11,21 @@ struct RDEF : public BytecodeChunk
 		{
 			std::string Name;
 			size_t Size;
+			uint16_t Row;
+			uint16_t Column;
+			uint16_t ArraySize;
+			uint16_t StructureMemberCount;
+			uint16_t VariableType;
+			uint16_t VariableClass;
 		};
 		std::string Name;
 		std::vector<ConstantBufferVariable> Variables;
-		
 	};
 
 	RDEF(std::shared_ptr<AXParser> parser);
 	~RDEF();
+
+	std::string ToString() const;
 
 private:
 

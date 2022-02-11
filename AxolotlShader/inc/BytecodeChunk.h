@@ -5,7 +5,7 @@ struct BytecodeChunk
 {
 public:
 	BytecodeChunk(size_t chunkOffset)
-		: ChunkOffset(chunkOffset - 5)
+		: ChunkOffset(chunkOffset + 4)
 	{
 
 	}
