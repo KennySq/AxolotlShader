@@ -1,9 +1,9 @@
 #pragma once
 
-struct ConstantBuffer
-{
-public:
-
-private:
-	std::vector<
-};
+//struct ConstantBuffer
+//{
+//public:
+//
+//private:
+//	//std::vector<
+//};

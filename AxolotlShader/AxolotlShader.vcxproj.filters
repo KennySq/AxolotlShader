@@ -97,5 +97,20 @@
     <None Include="resource\sample2.hlsl">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="resource\sample_compute.hlsl">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="resource\sample_domain.hlsl">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="resource\sample_geometry.hlsl">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="resource\sample_hull.hlsl">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="resource\sample_pixel.hlsl">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>

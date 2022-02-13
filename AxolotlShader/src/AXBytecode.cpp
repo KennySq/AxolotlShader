@@ -38,6 +38,8 @@ std::string AXBytecode::ChunkParseProxy(std::string chunk)
 	{
 		RDEF rdef = RDEF(mParser);
 		
+		std::cout << rdef.ToString() << '\n';
+
 	}
 
 	return GetNextChunk(mParser);
