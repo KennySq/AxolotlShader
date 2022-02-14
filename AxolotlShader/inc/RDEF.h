@@ -5,27 +5,36 @@
 #include"ShaderObject.h"
 #include"ShaderVariable.h"
 
+#include"VariableType.h"
+#include"VariableClass.h"
+
 struct BytecodeChunk;
 struct RDEF : public BytecodeChunk
 {
 	struct ConstantBuffer : public ShaderObject
 	{
-		ConstantBuffer(size_t parent, size_t offset, const std::string& name)
-			: ShaderObject(parent, offset, name)
+		ConstantBuffer(size_t parent, size_t offset, const std::string& name, uint16_t boundPoint)
+			: ShaderObject(parent, offset, name, TYPE_CBUFFER), BoundPoint(boundPoint)
 		{
 
 		}
 		struct ConstantBufferVariable : public ShaderVariable
 		{
 		public:
-			ConstantBufferVariable(uint32_t variableFlag, uint32_t variableSize, const std::string& name
+			ConstantBufferVariable(uint16_t type, uint16_t clss, uint32_t variableFlag, uint32_t variableSize, const std::string& name
 									, uint16_t row, uint16_t column, uint16_t arraySize, uint16_t structureMemberCount)
-				: ShaderVariable(variableFlag, variableSize, name),
+				: ShaderVariable(type, clss, variableFlag, variableSize, name),
 				mRow(row), mColumn(column), mArraySize(arraySize),
 				mStructureMemberCount(structureMemberCount)
 			{
 
 			}
+
+			uint16_t GetRow() const { return mRow; }
+			uint16_t GetColumn() const { return mColumn; }
+
+			uint16_t GetArraySize() const { return mArraySize; }
+			uint16_t GetStructureMemberCount() const { return mStructureMemberCount; }
 
 		private:
 			uint16_t mRow;
@@ -34,6 +43,7 @@ struct RDEF : public BytecodeChunk
 			uint16_t mStructureMemberCount;
 		};
 
+		uint16_t BoundPoint;
 		std::vector<ConstantBufferVariable> Variables;
 	};
 
@@ -60,4 +70,6 @@ private:
 	std::shared_ptr<AXParser> mParser;
 
 	std::vector<ConstantBuffer> mConstantBuffers;
+
+	std::string mCreator;
 };

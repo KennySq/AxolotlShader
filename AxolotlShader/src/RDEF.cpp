@@ -33,9 +33,7 @@ RDEF::RDEF(std::shared_ptr<AXParser> parser)
 	}
 
 	parser->Jump(ChunkOffset, creatorStringOffset);
-	std::string creator = parser->ReadString();
-
-
+	mCreator = parser->ReadString();
 }
 
 RDEF::~RDEF()
@@ -45,20 +43,19 @@ RDEF::~RDEF()
 std::string RDEF::ToString() const
 {
 	std::string str = "";
-	str += "RDEF Chunk\n";
-	str += " - Chunk Size : " + std::to_string(ChunkSize) + '\n';
+	str += mCreator + '\n';
+	std::string smString = " - Shader Model : ";
 
 	switch (mShaderType)
 	{
 	case 0xFFFE:
 	{
-		str += " - Shader Model : VS_" + mMajorVersion + '_' + mMinorVersion + '\n';
+		smString += std::string(" : VS_") + std::to_string(mMajorVersion) + '_' + std::to_string(mMinorVersion) + '\n';
 	}
 	break;
 	case 0xFFFF:
 	{
-		str += " - Shader Model : PS_" + mMajorVersion + '_' + mMinorVersion + '\n';
-
+		smString += std::string(" : PS_") + std::to_string(mMajorVersion) + '_' + std::to_string(mMinorVersion) + '\n';
 	}
 	break;
 
@@ -70,9 +67,48 @@ std::string RDEF::ToString() const
 
 	}
 
+	str += smString;
+
 	str += " - Constant Buffer Count : " + std::to_string(mConstantBufferCount) + '\n';
 	str += " - Bound Resources : " + std::to_string(mBoundResources) + '\n';
 	
+	str += std::string(" - Constant Buffers\n");
+
+	for (ConstantBuffer cb : mConstantBuffers)
+	{
+		str += "\t";
+		
+		str += std::string(" - Bind Point : ") + std::to_string(cb.BoundPoint) + '\n';
+		for (ConstantBuffer::ConstantBufferVariable var : cb.Variables)
+		{
+			uint32_t size = var.GetVariableSize();
+			uint16_t clss = var.GetVariableClass();
+			
+			str += std::string("\t\t") + var.GetName();
+			if (var.GetVariableFlag() == 2)
+			{
+				str += " (USED)";
+			}
+
+			str += '\n';
+
+			str += std::string("\t\t - Varialbe Size : ") + std::to_string(size);
+			str += '\n';
+
+			if (clss == eVariableClass::CLASS_MATRIX_COLUMNS || clss == eVariableClass::CLASS_MATRIX_ROWS)
+			{
+				str += std::string("\t\t - Rows : ") + std::to_string(var.GetRow()) + '\n';
+				str += std::string("\t\t - Columns : ") + std::to_string(var.GetColumn()) + '\n';
+
+			}
+
+			str += '\n';
+
+		}
+
+		str += '\n';
+	}
+
 	return str;
 }
 
@@ -93,7 +129,6 @@ void RDEF::readConstantBuffers(unsigned int i, size_t firstCbuffer, size_t first
 	mParser->Jump(ChunkOffset, cbufferNameOffset);
 	std::string cbufferName = mParser->ReadString();
 
-	ConstantBuffer cbuffer = ConstantBuffer(ChunkOffset, firstCbuffer + cbufferDescriptorOffset, cbufferName);
 
 	mParser->Jump(ChunkOffset, firstResource + resourceDescriptorOffset);
 
@@ -106,7 +141,7 @@ void RDEF::readConstantBuffers(unsigned int i, size_t firstCbuffer, size_t first
 	uint32_t bindCount = mParser->ReadUint32();
 	uint32_t shaderInputFlag = mParser->ReadUint32();
 
-
+	ConstantBuffer cbuffer = ConstantBuffer(ChunkOffset, firstCbuffer + cbufferDescriptorOffset, cbufferName, bindPoint);
 
 
 	for (unsigned int j = 0; j < variableCount; j++)
@@ -142,7 +177,7 @@ void RDEF::readConstantBuffers(unsigned int i, size_t firstCbuffer, size_t first
 		uint16_t unknown16 = mParser->ReadUint16();
 
 		ConstantBuffer::ConstantBufferVariable variable =
-			ConstantBuffer::ConstantBufferVariable(variableFlag, variableSize, variableName,
+			ConstantBuffer::ConstantBufferVariable(variableType, variableClass, variableFlag, variableSize, variableName,
 				matrixRowCount, matrixColumnCount, arrayCount, structureMemberCount);
 
 		cbuffer.Variables.push_back(variable);

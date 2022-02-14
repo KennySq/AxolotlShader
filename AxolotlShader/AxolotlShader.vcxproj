@@ -163,12 +163,15 @@
     <ClInclude Include="inc\framework.h" />
     <ClInclude Include="inc\AXParser.h" />
     <ClInclude Include="inc\Header.h" />
+    <ClInclude Include="inc\ISGN.h" />
     <ClInclude Include="inc\pch.h" />
     <ClInclude Include="inc\RDEF.h" />
     <ClInclude Include="inc\ShaderObject.h" />
     <ClInclude Include="inc\ShaderType.h" />
     <ClInclude Include="inc\ShaderVariable.h" />
     <ClInclude Include="inc\Util.h" />
+    <ClInclude Include="inc\VariableClass.h" />
+    <ClInclude Include="inc\VariableType.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AXBytecode.cpp" />
@@ -177,6 +180,7 @@
     <ClCompile Include="src\ConstantBuffer.cpp" />
     <ClCompile Include="src\Decoder.cpp" />
     <ClCompile Include="src\Header.cpp" />
+    <ClCompile Include="src\ISGN.cpp" />
     <ClCompile Include="src\pch.cpp" />
     <ClCompile Include="src\RDEF.cpp" />
     <ClCompile Include="src\ShaderObject.cpp" />
@@ -242,6 +246,11 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\sample3.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

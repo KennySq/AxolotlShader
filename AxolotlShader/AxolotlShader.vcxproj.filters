@@ -57,6 +57,15 @@
     <ClInclude Include="inc\ShaderObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="inc\VariableClass.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\VariableType.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ISGN.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\pch.cpp">
@@ -89,6 +98,9 @@
     <ClCompile Include="src\ShaderObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="src\ISGN.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\sample.hlsl">
@@ -110,6 +122,9 @@
       <Filter>리소스 파일</Filter>
     </None>
     <None Include="resource\sample_pixel.hlsl">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="resource\sample3.hlsl">
       <Filter>리소스 파일</Filter>
     </None>
   </ItemGroup>
