@@ -67,8 +67,6 @@ private:
 	unsigned short mShaderType;
 	unsigned char mPreshaderFlag;
 
-	std::shared_ptr<AXParser> mParser;
-
 	std::vector<ConstantBuffer> mConstantBuffers;
 
 	std::string mCreator;

@@ -1,9 +1,9 @@
 #pragma once
 #include"RDEF.h"
+#include"ISGN.h"
 
 struct AXBytecode
 {
-
 public:
 	AXBytecode(const char* path);
 	~AXBytecode();

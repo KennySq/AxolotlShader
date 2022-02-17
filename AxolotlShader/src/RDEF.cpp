@@ -2,7 +2,7 @@
 #include"RDEF.h"
 
 RDEF::RDEF(std::shared_ptr<AXParser> parser)
-	: mParser(parser), BytecodeChunk(parser->GetByteIndex())
+	: BytecodeChunk(parser->GetByteIndex(), parser)
 {
 	uint32_t chunkSize = parser->ReadUint32();
 	uint32_t cbufferCount = parser->ReadUint32();
@@ -117,64 +117,64 @@ void RDEF::readConstantBuffers(unsigned int i, size_t firstCbuffer, size_t first
 	int cbufferDescriptorOffset = (i * 24);
 	int resourceDescriptorOffset = (i * 32);
 
-	mParser->Jump(ChunkOffset, firstCbuffer + cbufferDescriptorOffset);
+	Parser->Jump(ChunkOffset, firstCbuffer + cbufferDescriptorOffset);
 
-	uint32_t cbufferNameOffset = mParser->ReadUint32();
-	uint32_t variableCount = mParser->ReadUint32();
-	uint32_t firstVariableDescriptionOffset = mParser->ReadUint32();
-	uint32_t cbufferSize = mParser->ReadUint32();
-	uint32_t cbufferFlag = mParser->ReadUint32();
-	uint32_t cbufferType = mParser->ReadUint32();
+	uint32_t cbufferNameOffset = Parser->ReadUint32();
+	uint32_t variableCount = Parser->ReadUint32();
+	uint32_t firstVariableDescriptionOffset = Parser->ReadUint32();
+	uint32_t cbufferSize = Parser->ReadUint32();
+	uint32_t cbufferFlag = Parser->ReadUint32();
+	uint32_t cbufferType = Parser->ReadUint32();
 
-	mParser->Jump(ChunkOffset, cbufferNameOffset);
-	std::string cbufferName = mParser->ReadString();
+	Parser->Jump(ChunkOffset, cbufferNameOffset);
+	std::string cbufferName = Parser->ReadString();
 
 
-	mParser->Jump(ChunkOffset, firstResource + resourceDescriptorOffset);
+	Parser->Jump(ChunkOffset, firstResource + resourceDescriptorOffset);
 
-	uint32_t resourceBoundName = mParser->ReadUint32();
-	uint32_t shaderInputType = mParser->ReadUint32();
-	uint32_t resourceReturnType = mParser->ReadUint32();
-	uint32_t resourceViewDimension = mParser->ReadUint32();
-	uint32_t sampleCount = mParser->ReadUint32();
-	uint32_t bindPoint = mParser->ReadUint32();
-	uint32_t bindCount = mParser->ReadUint32();
-	uint32_t shaderInputFlag = mParser->ReadUint32();
+	uint32_t resourceBoundName = Parser->ReadUint32();
+	uint32_t shaderInputType = Parser->ReadUint32();
+	uint32_t resourceReturnType = Parser->ReadUint32();
+	uint32_t resourceViewDimension = Parser->ReadUint32();
+	uint32_t sampleCount = Parser->ReadUint32();
+	uint32_t bindPoint = Parser->ReadUint32();
+	uint32_t bindCount = Parser->ReadUint32();
+	uint32_t shaderInputFlag = Parser->ReadUint32();
 
 	ConstantBuffer cbuffer = ConstantBuffer(ChunkOffset, firstCbuffer + cbufferDescriptorOffset, cbufferName, bindPoint);
 
 
 	for (unsigned int j = 0; j < variableCount; j++)
 	{
-		mParser->Jump(ChunkOffset, firstVariableDescriptionOffset + (j * 24));
+		Parser->Jump(ChunkOffset, firstVariableDescriptionOffset + (j * 24));
 
 
-		uint32_t variableNameOffset = mParser->ReadUint32();
-		uint32_t cbufferOffset = mParser->ReadUint32();
+		uint32_t variableNameOffset = Parser->ReadUint32();
+		uint32_t cbufferOffset = Parser->ReadUint32();
 
-		uint32_t variableSize = mParser->ReadUint32();
-		uint32_t variableFlag = mParser->ReadUint32(); // 2 means has been used.
+		uint32_t variableSize = Parser->ReadUint32();
+		uint32_t variableFlag = Parser->ReadUint32(); // 2 means has been used.
 
-		uint32_t variableTypeOffset = mParser->ReadUint32();
-		uint32_t defaultOffset = mParser->ReadUint32();
+		uint32_t variableTypeOffset = Parser->ReadUint32();
+		uint32_t defaultOffset = Parser->ReadUint32();
 
-		size_t readPoint = mParser->GetByteIndex();
+		size_t readPoint = Parser->GetByteIndex();
 
-		mParser->Jump(ChunkOffset, variableNameOffset);
+		Parser->Jump(ChunkOffset, variableNameOffset);
 
-		std::string variableName = mParser->ReadString();
+		std::string variableName = Parser->ReadString();
 
-		mParser->Jump(ChunkOffset, variableTypeOffset);
+		Parser->Jump(ChunkOffset, variableTypeOffset);
 
-		uint16_t variableClass = mParser->ReadUint16();
-		uint16_t variableType = mParser->ReadUint16();
+		uint16_t variableClass = Parser->ReadUint16();
+		uint16_t variableType = Parser->ReadUint16();
 
-		uint16_t matrixRowCount = mParser->ReadUint16();
-		uint16_t matrixColumnCount = mParser->ReadUint16();
-		uint16_t arrayCount = mParser->ReadUint16();
-		uint16_t structureMemberCount = mParser->ReadUint16();
-		uint16_t firstMemberOffset = mParser->ReadUint16();
-		uint16_t unknown16 = mParser->ReadUint16();
+		uint16_t matrixRowCount = Parser->ReadUint16();
+		uint16_t matrixColumnCount = Parser->ReadUint16();
+		uint16_t arrayCount = Parser->ReadUint16();
+		uint16_t structureMemberCount = Parser->ReadUint16();
+		uint16_t firstMemberOffset = Parser->ReadUint16();
+		uint16_t unknown16 = Parser->ReadUint16();
 
 		ConstantBuffer::ConstantBufferVariable variable =
 			ConstantBuffer::ConstantBufferVariable(variableType, variableClass, variableFlag, variableSize, variableName,
@@ -184,7 +184,7 @@ void RDEF::readConstantBuffers(unsigned int i, size_t firstCbuffer, size_t first
 
 		if (i != 0)
 		{
-			mParser->Jump(0, readPoint);
+			Parser->Jump(0, readPoint);
 		}
 	}
 

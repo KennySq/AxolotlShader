@@ -8,11 +8,10 @@ AXBytecode::AXBytecode(const char* path)
 {
 	mParser = AXParser::OpenFile(path);
 	Header head = Header(mParser);
-	std::string headNext = GetNextChunk(mParser);
+	std::string rdefString = GetNextChunk(mParser);
 
-	ChunkParseProxy(headNext);
-
-
+	std::string isgnString = ChunkParseProxy(rdefString);
+	std::string other = ChunkParseProxy(isgnString);
 }
 
 AXBytecode::~AXBytecode()
@@ -39,6 +38,12 @@ std::string AXBytecode::ChunkParseProxy(std::string chunk)
 		RDEF rdef = RDEF(mParser);
 		
 		std::cout << rdef.ToString() << '\n';
+	}
+
+	else if (chunk == "ISGN")
+	{
+		ISGN isgn = ISGN(mParser);
+
 
 	}
 
