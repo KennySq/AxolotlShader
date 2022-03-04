@@ -50,7 +50,7 @@ struct RDEF : public BytecodeChunk
 	RDEF(std::shared_ptr<AXParser> parser);
 	~RDEF();
 
-	std::string ToString() const;
+	virtual std::string ToString() const override;
 
 private:
 

@@ -4,6 +4,11 @@
 #include"Util.h"
 #include"Header.h"
 
+#include"RDEF.h"
+#include"ISGN.h"
+#include"OSGN.h"
+#include"SHDR.h"
+
 AXBytecode::AXBytecode(const char* path)
 {
 	mParser = AXParser::OpenFile(path);
@@ -11,7 +16,9 @@ AXBytecode::AXBytecode(const char* path)
 	std::string rdefString = GetNextChunk(mParser);
 
 	std::string isgnString = ChunkParseProxy(rdefString);
-	std::string other = ChunkParseProxy(isgnString);
+	std::string osgnString = ChunkParseProxy(isgnString);
+	std::string shdrChunk = ChunkParseProxy(osgnString);
+	std::string nextChunk = ChunkParseProxy(shdrChunk);
 }
 
 AXBytecode::~AXBytecode()
@@ -44,7 +51,20 @@ std::string AXBytecode::ChunkParseProxy(std::string chunk)
 	{
 		ISGN isgn = ISGN(mParser);
 
+		std::cout << isgn.ToString() << '\n';
+	}
 
+	else if (chunk == "OSGN")
+	{
+		OSGN osgn = OSGN(mParser);
+
+		std::cout << osgn.ToString() << '\n';
+	}
+	else if (chunk == "SHDR")
+	{
+		SHDR shdr = SHDR(mParser);
+
+		std::cout << shdr.ToString() << '\n';
 	}
 
 	return GetNextChunk(mParser);

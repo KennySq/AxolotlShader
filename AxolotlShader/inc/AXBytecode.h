@@ -1,6 +1,5 @@
 #pragma once
-#include"RDEF.h"
-#include"ISGN.h"
+#include"AXParser.h"
 
 struct AXBytecode
 {
@@ -12,8 +11,6 @@ public:
 private:
 
 	std::string ChunkParseProxy(std::string chunk);
-
-	std::unique_ptr<RDEF> mRDEF;
 
 	std::shared_ptr<AXParser> mParser;
 

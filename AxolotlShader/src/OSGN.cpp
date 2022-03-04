@@ -1,14 +1,12 @@
 #include"pch.h"
-#include"ISGN.h"
+#include"OSGN.h"
 
-ISGN::ISGN(const std::shared_ptr<AXParser>& parser)
+OSGN::OSGN(const std::shared_ptr<AXParser>& parser)
 	: BytecodeChunk(parser->GetByteIndex(), parser)
 {
 	uint32_t chunkSize = parser->ReadUint32();
 	ChunkOffset = parser->GetByteIndex();
-
 	uint32_t elementCount = parser->ReadUint32();
-
 	uint32_t unknownData0 = parser->ReadUint32();
 
 	for (int i = 0; i < elementCount; i++)
@@ -27,25 +25,25 @@ ISGN::ISGN(const std::shared_ptr<AXParser>& parser)
 
 		std::string elementName = parser->ReadString();
 
-		parser->Jump(0, readBack);		
+		parser->Jump(0, readBack);
 		parser->OffsetCorrection();
-		
+
 		int componentCount = mask;
 
 		mInputElements.emplace_back(elementName, componentCount, registerIndex, systemValueType);
+
 	}
 
 	parser->Jump(ChunkOffset, chunkSize);
 }
 
-ISGN::~ISGN()
+OSGN::~OSGN()
 {
 }
 
-std::string ISGN::ToString() const
+std::string OSGN::ToString() const
 {
-	std::string buffer = "ISGN\n";
-
+	std::string buffer = "OSGN\n";
 	size_t elementCount = mInputElements.size();
 	for (int i = 0; i < elementCount; i++)
 	{
